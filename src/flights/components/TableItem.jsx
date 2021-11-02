@@ -2,9 +2,9 @@ import React from 'react';
 import moment from 'moment';
 
 const TableItem = flightInfo => {
-  const { timeDepShedule, timeTakeofFact, term, fltNo, status } = flightInfo;
+  const { timeDepShedule, timeTakeofFact, term, status } = flightInfo;
 
-  const airportName = flightInfo['airportToID.city_ru'];
+  const airportName = flightInfo['airportToID.city_ru'] || flightInfo['airportFromID.city'];
   const { name, logoSmallName } = flightInfo.airline.ru;
 
   let terminalColor;
@@ -33,14 +33,31 @@ const TableItem = flightInfo => {
 
   switch (status) {
     case 'DP':
-      statusUa = 'Вилетів';
+      statusUa = `Вилетів о ${timeStatus}`;
       break;
     case 'LN':
-      statusUa = 'Прибув';
+      statusUa = `Прибув о ${timeStatus}`;
+      break;
+    case 'FR':
+      statusUa = 'В польоті';
+      break;
+    case 'ON':
+      statusUa = 'Вчасно';
+      break;
+    case 'GC':
+      statusUa = 'Посадка закінчена';
+      break;
+    case 'DL':
+      statusUa = 'Затримується';
+      break;
+    case 'CK':
+      statusUa = 'Реєстрація';
       break;
     default:
       statusUa = status;
   }
+  const carrierIATA = `${flightInfo['carrierID.IATA']}${flightInfo.fltNo}`;
+  const flightNumber = carrierIATA;
 
   return (
     <tr>
@@ -54,7 +71,7 @@ const TableItem = flightInfo => {
         <span>{airportName}</span>
       </td>
       <td>
-        <span>{`${statusUa} о ${timeStatus}`}</span>
+        <span>{statusUa}</span>
       </td>
       <td>
         <div className="company-name">
@@ -63,7 +80,7 @@ const TableItem = flightInfo => {
         </div>
       </td>
       <td>
-        <span>{fltNo}</span>
+        <span>{flightNumber}</span>
       </td>
     </tr>
   );

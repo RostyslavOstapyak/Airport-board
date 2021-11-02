@@ -1,8 +1,11 @@
 import React from 'react';
 import TableItem from './TableItem';
 
-const Table = ({ flightsList }) => {
+const Table = ({ flightsList, isDepartureActive }) => {
   console.log(flightsList);
+  const flightsListToRender = flightsList
+    .slice()
+    .sort((a, b) => a.timeDepShedule - b.timeDepShedule);
   return (
     <section className="flights-table">
       <table>
@@ -10,14 +13,14 @@ const Table = ({ flightsList }) => {
           <tr>
             <td>Термінал</td>
             <td>Розклад</td>
-            <td>Напрямок</td>
+            {isDepartureActive ? <td>Напрямок</td> : <td>Прилітає з</td>}
             <td>Статус</td>
             <td>Авіакомпанія</td>
             <td>Рейс</td>
           </tr>
         </thead>
         <tbody>
-          {flightsList.map(flight => (
+          {flightsListToRender.map(flight => (
             <TableItem key={flight.ID} {...flight} />
           ))}
         </tbody>

@@ -38,7 +38,7 @@ const AirportTAble = ({ flightsList, getFlights }) => {
         handleDepartureChange={handleDepartureChange}
         handleArrivalChange={handleArrivalChange}
       />
-      <Table flightsList={flightsListToRender} />
+      <Table flightsList={flightsListToRender} isDepartureActive={isDepartureActive} />
     </div>
   );
 };
