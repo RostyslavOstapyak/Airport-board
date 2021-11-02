@@ -56,8 +56,7 @@ const TableItem = flightInfo => {
     default:
       statusUa = status;
   }
-  const carrierIATA = `${flightInfo['carrierID.IATA']}${flightInfo.fltNo}`;
-  const flightNumber = carrierIATA;
+  const flightNumber = `${flightInfo['carrierID.IATA']}${flightInfo.fltNo}`;
 
   return (
     <tr>

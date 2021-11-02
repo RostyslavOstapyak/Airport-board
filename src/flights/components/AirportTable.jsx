@@ -1,54 +1,34 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { GiAirplaneArrival, GiAirplaneDeparture } from 'react-icons/gi';
+import { BrowserRouter, NavLink, Switch, Route } from 'react-router-dom';
 import Search from './Search.jsx';
-import Switches from './Switches.jsx';
 import Table from './Table.jsx';
-import { flightsListSelector } from '../flight.selectors';
-import { getFlightsList } from '../flight.actions';
 
-const AirportTAble = ({ flightsList, getFlights }) => {
-  React.useEffect(() => getFlights(), []);
-
-  let flightsListToRender = flightsList.departure;
-
-  const [isDepartureActive, setIsDepartureActive] = React.useState(true);
-
-  const handleDepartureChange = e => {
-    e.preventDefault();
-    if (!isDepartureActive) {
-      setIsDepartureActive(true);
-    }
-  };
-
-  const handleArrivalChange = e => {
-    e.preventDefault();
-    if (isDepartureActive) {
-      setIsDepartureActive(false);
-    }
-  };
-
-  if (!isDepartureActive) {
-    flightsListToRender = flightsList.arrival;
-  }
-  return (
+const AirportTAble = () => (
+  <BrowserRouter>
     <div className="wrapper">
       <Search />
-      <Switches
-        isDepartureActive={isDepartureActive}
-        handleDepartureChange={handleDepartureChange}
-        handleArrivalChange={handleArrivalChange}
-      />
-      <Table flightsList={flightsListToRender} isDepartureActive={isDepartureActive} />
+      <section className="switches">
+        <NavLink to="/departures" className="switches__link" activeClassName="active">
+          <GiAirplaneDeparture /> Виліт
+        </NavLink>
+        <NavLink
+          to="/arrivals"
+          href="/arrivals"
+          className="switches__link"
+          activeClassName="active"
+        >
+          <GiAirplaneArrival />
+          Приліт
+        </NavLink>
+      </section>
+      <Switch>
+        <Route exact path="/" component={Table} />
+        <Route path="/arrivals" component={Table} />
+        <Route path="/departures" component={Table} />
+      </Switch>
     </div>
-  );
-};
+  </BrowserRouter>
+);
 
-const mapState = state => ({
-  flightsList: flightsListSelector(state),
-});
-
-const mapDispatch = {
-  getFlights: getFlightsList,
-};
-
-export default connect(mapState, mapDispatch)(AirportTAble);
+export default AirportTAble;

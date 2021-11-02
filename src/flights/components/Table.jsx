@@ -1,11 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import TableItem from './TableItem';
+import { flightsListSelector } from '../flight.selectors';
+import { getFlightsList } from '../flight.actions';
 
-const Table = ({ flightsList, isDepartureActive }) => {
+const Table = ({ flightsList, getFlights }) => {
+  const ff = useParams();
+  console.log(ff);
+
+  React.useEffect(() => getFlights(), []);
+
+  const flightsListToRender = flightsList.departure.slice();
+
+  const isDeparture = true; // fix this
+
   console.log(flightsList);
-  const flightsListToRender = flightsList
-    .slice()
-    .sort((a, b) => a.timeDepShedule - b.timeDepShedule);
+  flightsListToRender.sort((a, b) => a.timeDepShedule - b.timeDepShedule);
   return (
     <section className="flights-table">
       <table>
@@ -13,7 +24,7 @@ const Table = ({ flightsList, isDepartureActive }) => {
           <tr>
             <td>Термінал</td>
             <td>Розклад</td>
-            {isDepartureActive ? <td>Напрямок</td> : <td>Прилітає з</td>}
+            {isDeparture ? <td>Напрямок</td> : <td>Прилітає з</td>}
             <td>Статус</td>
             <td>Авіакомпанія</td>
             <td>Рейс</td>
@@ -29,4 +40,12 @@ const Table = ({ flightsList, isDepartureActive }) => {
   );
 };
 
-export default Table;
+const mapState = state => ({
+  flightsList: flightsListSelector(state),
+});
+
+const mapDispatch = {
+  getFlights: getFlightsList,
+};
+
+export default connect(mapState, mapDispatch)(Table);
