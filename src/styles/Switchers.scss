@@ -1,0 +1,51 @@
+.switches {
+  margin-top: 40px;
+  max-width: 1140px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: $color-white;
+  height: 40px;
+
+  & a {
+    & svg {
+      margin: 0 10px;
+    }
+  }
+  &__link {
+    width: 100%;
+    transition: 0.5s;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+    background-color: $color-blue;
+    color: $color-white;
+    padding-left: 50px;
+    border-radius: 60px 60px 0 0;
+    &:hover {
+      background-color: $color-dark-blue;
+    }
+    &:nth-child(1) {
+      text-align: right;
+      padding-right: 85px;
+    }
+    &:nth-child(2) {
+      padding-left: 75px;
+      margin-left: -75px;
+    }
+  }
+}
+.active {
+  padding-right: 100px;
+  z-index: 2;
+  background-color: $color-white;
+  color: $color-blue;
+  border-radius: 60px 60px 0 0;
+  &:hover {
+    background-color: $color-white;
+  }
+}

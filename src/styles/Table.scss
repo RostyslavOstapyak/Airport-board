@@ -1,0 +1,65 @@
+.flights-table {
+  max-width: 1140px;
+  width: 100%;
+  background-color: $color-white;
+  padding-top: 25px;
+  & thead {
+    color: $color-text-gray;
+    & tr {
+      height: 42px;
+    }
+  }
+}
+
+table {
+  width: 100%;
+  & tbody {
+    & tr {
+      &:nth-child(2n-1) {
+        background-color: rgba(0, 102, 135, 0.1);
+      }
+    }
+  }
+  & tr {
+    height: 72px;
+    width: 100%;
+  }
+  & td {
+    text-align: left;
+    padding: 16px 10px;
+    font-size: 18px;
+    line-height: 40px;
+    color: $base-text-color;
+    width: fit-content;
+    flex: 1 0;
+    &:nth-child(1) {
+      text-align: center;
+      width: 110px;
+      & span {
+        display: inline-block;
+        color: #63c745;
+        font-weight: 700;
+        border: 1px solid #63c745;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 35px;
+        font-size: 22px;
+      }
+    }
+    &:nth-child(7) {
+      color: $color-dark-blue;
+      opacity: 0;
+      transition: 0.3s;
+      width: 180px;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+.company-name {
+  font-size: 16px;
+  line-height: 18px;
+}
