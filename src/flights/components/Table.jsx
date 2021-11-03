@@ -6,14 +6,14 @@ import { flightsListSelector } from '../flight.selectors';
 import { getFlightsList } from '../flight.actions';
 
 const Table = ({ flightsList, getFlights }) => {
-  const ff = useParams();
-  console.log(ff);
+  const { flightType } = useParams();
 
   React.useEffect(() => getFlights(), []);
 
-  const flightsListToRender = flightsList.departure.slice();
+  const flightsListToRender =
+    flightType === 'arrivals' ? flightsList.arrival.slice() : flightsList.departure.slice();
 
-  const isDeparture = true; // fix this
+  const isDeparture = flightType === 'arrivals';
 
   console.log(flightsList);
   flightsListToRender.sort((a, b) => a.timeDepShedule - b.timeDepShedule);

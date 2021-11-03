@@ -7,6 +7,8 @@ const TableItem = flightInfo => {
   const airportName = flightInfo['airportToID.city_ru'] || flightInfo['airportFromID.city'];
   const { name, logoSmallName } = flightInfo.airline.ru;
 
+  const flightNumber = `${flightInfo['carrierID.IATA']}${flightInfo.fltNo}`;
+
   let terminalColor;
   switch (term) {
     case 'A':
@@ -56,7 +58,6 @@ const TableItem = flightInfo => {
     default:
       statusUa = status;
   }
-  const flightNumber = `${flightInfo['carrierID.IATA']}${flightInfo.fltNo}`;
 
   return (
     <tr>

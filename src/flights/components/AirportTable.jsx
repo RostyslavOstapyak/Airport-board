@@ -23,9 +23,7 @@ const AirportTAble = () => (
         </NavLink>
       </section>
       <Switch>
-        <Route exact path="/" component={Table} />
-        <Route path="/arrivals" component={Table} />
-        <Route path="/departures" component={Table} />
+        <Route path="/:flightType" component={Table} />
       </Switch>
     </div>
   </BrowserRouter>
