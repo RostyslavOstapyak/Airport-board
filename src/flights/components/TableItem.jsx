@@ -1,15 +1,10 @@
 import React from 'react';
-import moment from 'moment';
 
 const TableItem = flightInfo => {
-  const { timeDepShedule, timeTakeofFact, term, status } = flightInfo;
-
-  const airportName = flightInfo['airportToID.city_ru'] || flightInfo['airportFromID.city'];
-  const { name, logoSmallName } = flightInfo.airline.ru;
-
-  const flightNumber = `${flightInfo['carrierID.IATA']}${flightInfo.fltNo}`;
+  const { term, flightNumber, name, logoSmallName, airportName, localTime, statusUa } = flightInfo;
 
   let terminalColor;
+
   switch (term) {
     case 'A':
       terminalColor = 'green';
@@ -26,37 +21,6 @@ const TableItem = flightInfo => {
     default:
       terminalColor = 'lightcoral';
       break;
-  }
-
-  const localTime = moment(timeDepShedule).format('HH:mm');
-  const timeStatus = moment(timeTakeofFact).format('HH:mm');
-
-  let statusUa;
-
-  switch (status) {
-    case 'DP':
-      statusUa = `Вилетів о ${timeStatus}`;
-      break;
-    case 'LN':
-      statusUa = `Прибув о ${timeStatus}`;
-      break;
-    case 'FR':
-      statusUa = 'В польоті';
-      break;
-    case 'ON':
-      statusUa = 'Вчасно';
-      break;
-    case 'GC':
-      statusUa = 'Посадка закінчена';
-      break;
-    case 'DL':
-      statusUa = 'Затримується';
-      break;
-    case 'CK':
-      statusUa = 'Реєстрація';
-      break;
-    default:
-      statusUa = status;
   }
 
   return (

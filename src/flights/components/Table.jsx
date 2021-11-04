@@ -1,22 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import TableItem from './TableItem';
 import { flightsListSelector } from '../flight.selectors';
 import { getFlightsList } from '../flight.actions';
+import prepareFlightsList from '../prepareData';
 
 const Table = ({ flightsList, getFlights }) => {
   const { flightType } = useParams();
 
-  React.useEffect(() => getFlights(), []);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const q = params.get('q');
 
-  const flightsListToRender =
-    flightType === 'arrivals' ? flightsList.arrival.slice() : flightsList.departure.slice();
+  const [flightsListToRender, setFlightsListToRender] = React.useState([]);
 
   const isDeparture = flightType === 'arrivals';
 
-  console.log(flightsList);
-  flightsListToRender.sort((a, b) => a.timeDepShedule - b.timeDepShedule);
+  React.useEffect(() => {
+    getFlights();
+  }, [q]);
+
+  React.useEffect(() => {
+    setFlightsListToRender(prepareFlightsList(flightsList, isDeparture, q));
+  }, [q, flightsList, isDeparture]);
+
+  if (flightsListToRender.length <= 0) {
+    return <span className="noting-found">Немає рейсів</span>;
+  }
+
   return (
     <section className="flights-table">
       <table>
@@ -24,7 +36,7 @@ const Table = ({ flightsList, getFlights }) => {
           <tr>
             <td>Термінал</td>
             <td>Розклад</td>
-            {isDeparture ? <td>Напрямок</td> : <td>Прилітає з</td>}
+            {isDeparture ? <td>Прилітає з</td> : <td>Напрямок</td>}
             <td>Статус</td>
             <td>Авіакомпанія</td>
             <td>Рейс</td>

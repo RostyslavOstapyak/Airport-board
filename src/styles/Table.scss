@@ -17,6 +17,10 @@ table {
     & tr {
       &:nth-child(2n-1) {
         background-color: rgba(0, 102, 135, 0.1);
+        transition: 0.5s;
+      }
+      &:hover {
+        box-shadow: 0 0 10px #000;
       }
     }
   }
@@ -62,4 +66,8 @@ table {
 .company-name {
   font-size: 16px;
   line-height: 18px;
+}
+.noting-found {
+  margin-top: 2em;
+  font-size: 3em;
 }
