@@ -9,8 +9,6 @@ import prepareFlightsList from '../prepareData';
 const Table = ({ flightsList, getFlights }) => {
   const { flightType } = useParams();
 
-  console.log(flightType);
-
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const search = params.get('search');
