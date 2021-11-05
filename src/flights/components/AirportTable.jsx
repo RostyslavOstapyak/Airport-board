@@ -7,6 +7,7 @@ import History from '../../history';
 
 const AirportTAble = () => {
   const [flightType, setFlightType] = React.useState('departures');
+  const [search, setSearch] = React.useState('');
 
   const handleFlightTypeChange = e => {
     const linkElem = e.target.closest('.switches__link');
@@ -21,11 +22,11 @@ const AirportTAble = () => {
   return (
     <Router history={History}>
       <div className="wrapper">
-        <Search flightType={flightType} />
+        <Search flightType={flightType} setSearch={setSearch} />
 
         <section className="switches">
           <NavLink
-            to="/departures"
+            to={{ path: '/departures', search }}
             href="/departures"
             className="switches__link"
             activeClassName="active"
@@ -34,7 +35,7 @@ const AirportTAble = () => {
             <GiAirplaneDeparture /> Виліт
           </NavLink>
           <NavLink
-            to="/arrivals"
+            to={{ path: '/arrivals', search }}
             href="/arrivals"
             className="switches__link"
             activeClassName="active"

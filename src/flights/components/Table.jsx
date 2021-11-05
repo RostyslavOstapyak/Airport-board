@@ -9,9 +9,11 @@ import prepareFlightsList from '../prepareData';
 const Table = ({ flightsList, getFlights }) => {
   const { flightType } = useParams();
 
+  console.log(flightType);
+
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const q = params.get('q');
+  const search = params.get('search');
 
   const [flightsListToRender, setFlightsListToRender] = React.useState([]);
 
@@ -19,11 +21,11 @@ const Table = ({ flightsList, getFlights }) => {
 
   React.useEffect(() => {
     getFlights();
-  }, [q]);
+  }, [search]);
 
   React.useEffect(() => {
-    setFlightsListToRender(prepareFlightsList(flightsList, isDeparture, q));
-  }, [q, flightsList, isDeparture]);
+    setFlightsListToRender(prepareFlightsList(flightsList, isDeparture, search));
+  }, [search, flightsList, isDeparture]);
 
   if (flightsListToRender.length <= 0) {
     return <span className="noting-found">Немає рейсів</span>;
