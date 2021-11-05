@@ -26,7 +26,7 @@ const AirportTAble = () => {
 
         <section className="switches">
           <NavLink
-            to={{ path: '/departures', search }}
+            to={`/departures?${search}`}
             href="/departures"
             className="switches__link"
             activeClassName="active"
@@ -35,7 +35,7 @@ const AirportTAble = () => {
             <GiAirplaneDeparture /> Виліт
           </NavLink>
           <NavLink
-            to={{ path: '/arrivals', search }}
+            to={`/arrivals?${search}`}
             href="/arrivals"
             className="switches__link"
             activeClassName="active"
