@@ -43,6 +43,9 @@ const prepareFlightsList = (flightsList, flightType, q) => {
       case 'CK':
         statusUa = 'Реєстрація';
         break;
+      case 'BD':
+        statusUa = 'Посадка';
+        break;
       default:
         statusUa = flight.status;
     }
