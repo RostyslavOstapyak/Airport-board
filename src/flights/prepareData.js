@@ -50,11 +50,11 @@ const prepareFlightsList = (flightsList, flightType, q) => {
         statusUa = flight.status;
     }
 
-    const { name, logoSmallName } = flight.airline.ru;
+    const { name, logoSmallName } = flight.airline.ua;
 
     return {
       ID: flight.ID,
-      airportName: flight['airportToID.city_ru'] || flight['airportFromID.city'],
+      airportName: flight['airportToID.city'] || flight['airportFromID.city'],
       name,
       term: flight.term,
       logoSmallName,
@@ -65,7 +65,13 @@ const prepareFlightsList = (flightsList, flightType, q) => {
     };
   });
 
-  return q ? result.filter(flightElem => flightElem.flightNumber.includes(q)) : result;
+  return q
+    ? result.filter(
+        flightElem =>
+          flightElem.flightNumber.includes(q) ||
+          flightElem.airportName.toUpperCase().includes(q.toUpperCase()),
+      )
+    : result;
 };
 
 export default prepareFlightsList;
