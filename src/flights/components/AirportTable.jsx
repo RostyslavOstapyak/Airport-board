@@ -9,14 +9,12 @@ const AirportTAble = () => {
   const [flightType, setFlightType] = React.useState('departures');
 
   const handleFlightTypeChange = e => {
-    if (e.target.href) {
-      return null;
-    }
     const linkElem = e.target.closest('.switches__link');
     if (linkElem.href.includes('departures')) {
       setFlightType('departures');
+    } else {
+      setFlightType('arrivals');
     }
-    setFlightType('arrivals');
     return undefined;
   };
 
@@ -51,7 +49,9 @@ const AirportTAble = () => {
             <Redirect to="/departures" />
           </Route>
 
-          <Route path="/:flightType" component={Table} />
+          <Route path="/:flightType">
+            <Table />
+          </Route>
         </Switch>
       </div>
     </Router>

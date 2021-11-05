@@ -2,22 +2,22 @@ import React from 'react';
 import { ImSearch } from 'react-icons/im';
 import History from '../../history';
 
-const Search = ({ flightType }) => {
+const Search = ({ flightType, updateQs }) => {
   const [searchInputValue, setSearchInputValue] = React.useState('');
 
   const handleChange = e => setSearchInputValue(e.target.value);
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    History.push(`/${flightType}?q=${searchInputValue}`);
-    setSearchInputValue('');
-  };
-
   const btnRef = React.createRef();
   const handleKeyPress = event => {
     if (event.keyCode === 13) {
-      btnRef.click();
+      btnRef.current.click();
     }
+  };
+  updateQs(btnRef.current.click);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    History.push(`/${flightType}?q=${searchInputValue}`);
   };
 
   return (
