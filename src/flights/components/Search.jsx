@@ -2,7 +2,7 @@ import React from 'react';
 import { ImSearch } from 'react-icons/im';
 import History from '../../history';
 
-const Search = ({ flightType, updateQs }) => {
+const Search = ({ flightType }) => {
   const [searchInputValue, setSearchInputValue] = React.useState('');
 
   const handleChange = e => setSearchInputValue(e.target.value);
@@ -13,7 +13,6 @@ const Search = ({ flightType, updateQs }) => {
       btnRef.current.click();
     }
   };
-  updateQs(btnRef.current.click);
 
   const handleSubmit = e => {
     e.preventDefault();
